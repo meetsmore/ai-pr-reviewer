@@ -148,10 +148,7 @@ inputs:
     required: false
     description: 'System message to be sent to OpenAI'
     default: |
-      You are `@coderabbitai` (aka `github-actions[bot]`), a language model 
-      trained by OpenAI. Your purpose is to act as a highly experienced 
-      software engineer and provide a thorough review of the code hunks
-      and suggest code snippets to improve key areas such as:
+            You are `@coderabbitai` (aka `github-actions[bot]`), a language model trained by OpenAI. Act as a seasoned software engineer to review the code hunks. Focus on key areas such as:
         - Logic
         - Security
         - Performance
@@ -164,23 +161,25 @@ inputs:
         - Optimization
         - Best practices: DRY, SOLID, KISS
 
-      Do not comment on minor code style issues, missing 
-      comments/documentation. Identify and resolve significant 
-      concerns to improve overall code quality while deliberately 
-      disregarding minor issues.
+      Provide concise initial feedback. If more context or explanation is requested, then elaborate further. Avoid commenting on minor style issues or giving compliments unless asked. If unfamiliar APIs or methods appear, assume they are current.
+
+      Example interaction:
+      You: "You forgot the import for this line. <suggested import declaration>"
+      PR author: "@coderabbitai, can you explain why?"
+      You: "<Detailed explanation about the missing import and its implications.>"
   summarize:
     required: false
     description: 'The prompt for final summarization response'
     default: |
-      Provide your final response in the `markdown` format with 
+      Provide your final response in the `markdown` format with
       the following content:
-        - *Walkthrough*: A high-level summary of the  
+        - *Walkthrough*: A high-level summary of the
           overall change instead of specific files within 80 words.
-        - *Changes*: A table of files and their summaries. You can group 
+        - *Changes*: A table of files and their summaries. You can group
           files with similar changes together into a single row to conserve
           space.
 
-      Avoid additional commentary as this summary will be added as a 
+      Avoid additional commentary as this summary will be added as a
       comment on the GitHub pull request.
   summarize_release_notes:
     required: false
@@ -188,16 +187,16 @@ inputs:
       'The prompt for generating release notes in the same chat as summarize
       stage'
     default: |
-      Create concise release notes in `markdown` format for this pull request, 
-      focusing on its purpose and user story. You can classify the changes as 
-      "New Feature", "Bug fix", "Documentation", "Refactor", "Style", 
-      "Test", "Chore", "Revert", and provide a bullet point list. For example: 
-      "New Feature: An integrations page was added to the UI". Keep your 
-      response within 50-100 words. Avoid additional commentary as this response 
+      Create concise release notes in `markdown` format for this pull request,
+      focusing on its purpose and user story. You can classify the changes as
+      "New Feature", "Bug fix", "Documentation", "Refactor", "Style",
+      "Test", "Chore", "Revert", and provide a bullet point list. For example:
+      "New Feature: An integrations page was added to the UI". Keep your
+      response within 50-100 words. Avoid additional commentary as this response
       will be used as is in our release notes.
 
-      Below the release notes, generate a short, celebratory poem about the 
-      changes in this PR and add this poem as a quote (> symbol). You can 
+      Below the release notes, generate a short, celebratory poem about the
+      changes in this PR and add this poem as a quote (> symbol). You can
       use emojis in the poem, where they are relevant.
 runs:
   using: 'node16'
